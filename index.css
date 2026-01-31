@@ -199,6 +199,31 @@ input[type="file"] {
   }
 }
 
+/* Mobile-specific improvements for smaller screens */
+@media (max-width: 480px) {
+  .tech-corner-br {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%) !important;
+  }
+  
+  .tech-corner-tl {
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px) !important;
+  }
+}
+
+/* Ensure proper touch targets */
+button, 
+.cursor-pointer {
+  min-height: 44px !important;
+  min-width: 44px !important;
+}
+
+/* Safe area handling for mobile devices */
+@supports (padding: max(0px)) {
+  .mobile-safe-bottom {
+    padding-bottom: max(24px, env(safe-area-inset-bottom)) !important;
+  }
+}
+
 /* Mobile-safe backdrop filter fallback */
 @supports not (backdrop-filter: blur(16px)) {
   .glass {
