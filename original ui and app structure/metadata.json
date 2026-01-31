@@ -1,0 +1,7 @@
+{
+  "name": "titanXboarPRIME",
+  "description": "High-performance image analysis and description suite powered by Quick Red Tech's advanced AI models. Built for rapid visual intelligence on the go.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
