@@ -1,0 +1,261 @@
+/* titanXboarPRIME Global Styles */
+
+/* Import TailwindCSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: #050505;
+  color: #f0f0f0;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  /* Mobile optimizations */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  touch-action: manipulation;
+  margin: 0;
+  padding: 0;
+  /* Prevent mobile browser black screen issues */
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Prevent mobile browser issues */
+html {
+  background-color: #050505;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  background-color: #050505;
+}
+
+/* Custom utility classes */
+.mono { 
+  font-family: 'JetBrains Mono', monospace; 
+}
+
+.glass {
+  background: rgba(15, 15, 15, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 61, 0, 0.1);
+}
+
+/* Mobile-safe backdrop filter fallback */
+@supports not (backdrop-filter: blur(16px)) {
+  .glass {
+    background: rgba(15, 15, 15, 0.95);
+  }
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 768px) {
+  .glass {
+    /* Reduce blur on mobile for better performance */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+.prime-gradient {
+  background: linear-gradient(135deg, #ff3d00 0%, #ff8e53 100%);
+}
+
+.prime-glow {
+  box-shadow: 0 0 25px rgba(255, 61, 0, 0.25);
+}
+
+.tech-corner-br {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);
+}
+
+.tech-corner-tl {
+  clip-path: polygon(15px 0, 100% 0, 100% 100%, 0 100%, 0 15px);
+}
+
+.grid-bg {
+  background-image: radial-gradient(rgba(255, 61, 0, 0.15) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.scan-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #ff3d00, transparent);
+  position: absolute;
+  top: 0;
+  animation: scan 3s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes scan {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+/* Custom scrollbar styles */
+.json-worker {
+  scrollbar-width: thin;
+  scrollbar-color: #ff3d00 #111;
+}
+
+.json-worker::-webkit-scrollbar {
+  width: 4px;
+}
+
+.json-worker::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+.json-worker::-webkit-scrollbar-thumb {
+  background: #ff3d00;
+  border-radius: 2px;
+}
+
+.json-worker::-webkit-scrollbar-thumb:hover {
+  background: #ff8e53;
+}
+
+/* Animation utilities */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-from-bottom-6 {
+  from { 
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoom-in-95 {
+  from { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+.slide-in-from-bottom-6 {
+  animation: slide-in-from-bottom-6 0.5s ease-out;
+}
+
+.zoom-in-95 {
+  animation: zoom-in-95 0.2s ease-out;
+}
+
+/* Mobile safe area handling */
+.mobile-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #ff3d00;
+  outline-offset: 2px;
+}
+
+/* Mobile touch improvements */
+button, 
+input[type="file"] + label,
+.touch-manipulation {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* Prevent mobile browser zoom on file input */
+input[type="file"] {
+  font-size: 16px;
+}
+
+/* Mobile-specific image handling */
+@media (max-width: 768px) {
+  img {
+    /* Prevent image rendering issues on mobile */
+    image-rendering: auto;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* Reduce animation complexity on mobile */
+  .animate-ping,
+  .animate-pulse,
+  .animate-spin {
+    animation-duration: 2s;
+  }
+  
+  /* Optimize backdrop filters for mobile */
+  .backdrop-blur-md {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+}
+
+/* Loading states */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
