@@ -4,7 +4,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 const getAI = () => {
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
-    throw new Error('Gemini API key not configured. Please set VITE_GEMINI_API_KEY in your environment.');
+    throw new Error('⚠️ API KEY REQUIRED: Please set your real Gemini API key in .env.local file. Get one from https://ai.google.dev/');
   }
   return new GoogleGenAI({ apiKey });
 };
@@ -80,11 +80,21 @@ export const analyzeImage = async (base64Image: string): Promise<any> => {
   } catch (error) {
     console.error('Gemini API Error:', error);
     
-    // Provide a fallback response for debugging
-    if (error instanceof Error && error.message.includes('API key')) {
-      throw error; // Re-throw API key errors
+    // Provide specific error messages
+    if (error instanceof Error) {
+      if (error.message.includes('API KEY REQUIRED')) {
+        throw error; // Re-throw API key errors with clear message
+      } else if (error.message.includes('API_KEY_INVALID') || error.message.includes('invalid API key')) {
+        throw new Error('🔑 INVALID API KEY: Your Gemini API key is invalid. Please check your key at https://ai.google.dev/');
+      } else if (error.message.includes('quota') || error.message.includes('limit')) {
+        throw new Error('📊 QUOTA EXCEEDED: You have reached your API usage limit. Please check your quota at https://ai.google.dev/');
+      } else if (error.message.includes('PERMISSION_DENIED')) {
+        throw new Error('🚫 PERMISSION DENIED: Your API key does not have permission to use Gemini. Please check your API settings.');
+      } else if (error.message.includes('Invalid response')) {
+        throw new Error('🤖 AI RESPONSE ERROR: The AI service returned an invalid response. Please try again.');
+      }
     }
     
-    throw new Error(`Image analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error('🔧 SYSTEM ERROR: Could not process image. Please check your internet connection and try again.');
   }
 };
