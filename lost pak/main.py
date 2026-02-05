@@ -1,0 +1,1 @@
+list = [user_input() for _ in range(5)]
